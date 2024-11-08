@@ -57,26 +57,26 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_KEY }}
           script: |
-            cd /path/to/your/app
+            cd /sample/CICDTesting/
             git pull origin main
             pip install -r requirements.txt
-            sudo systemctl restart your-app
+            sudo systemctl restart myapp
 
       - name: Run smoke tests on Green Environment
         run: |
           # Add your smoke test commands here
-          curl -f http://your-green-environment-url/
+          curl -f http://18.143.144.246:8000/
 
-      - name: Switch traffic to Green Environment
-        run: |
-          # Update DNS or Load Balancer to route traffic to Green Environment
-          aws elbv2 modify-listener --listener-arn <your-listener-arn> --default-actions Type=forward,TargetGroupArn=<green-target-group-arn>
+      # - name: Switch traffic to Green Environment
+      #   run: |
+      #     # Update DNS or Load Balancer to route traffic to Green Environment
+      #     aws elbv2 modify-listener --listener-arn <your-listener-arn> --default-actions Type=forward,TargetGroupArn=<green-target-group-arn>
 
-  rollback:
-    runs-on: ubuntu-latest
-    if: failure()
-    steps:
-      - name: Switch traffic back to Blue Environment
-        run: |
-          # Rollback to Blue Environment in case of failure
-          aws elbv2 modify-listener --listener-arn <your-listener-arn> --default-actions Type=forward,TargetGroupArn=<blue-target-group-arn>
+  # rollback:
+  #   runs-on: ubuntu-latest
+  #   if: failure()
+  #   steps:
+  #     - name: Switch traffic back to Blue Environment
+  #       run: |
+  #         # Rollback to Blue Environment in case of failure
+  #         aws elbv2 modify-listener --listener-arn <your-listener-arn> --default-actions Type=forward,TargetGroupArn=<blue-target-group-arn>
