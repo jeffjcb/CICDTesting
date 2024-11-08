@@ -51,7 +51,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Deploy to Green Environment
-        uses: appleboy/ssh-action@v0.1.3
+        uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.GREEN_HOST }}
           username: ${{ secrets.EC2_USER }}
