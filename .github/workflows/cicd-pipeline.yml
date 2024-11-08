@@ -57,7 +57,7 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_KEY }}
           script: |
-            cd /sample/CICDTesting/
+            cd ~/sample/CICDTesting/
             git pull origin main
             pip install -r requirements.txt
             sudo systemctl restart myapp
